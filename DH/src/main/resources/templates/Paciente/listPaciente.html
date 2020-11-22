@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+<title>Digital Harbor - Hospital</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/index">Digital Harbor</a>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<hr />
+				<h2>App de test para Digital Harbor</h2>
+				<hr />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">
+
+				<h2>Lista de pacientes</h2>
+			</div>
+			<div class="col-3">
+				<form th:action="@{/formularioPaciente}" method="POST">
+					<button class="btn btn-primary btn-block">Agregar un
+						Paciente</button>
+				</form>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Identificador</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Fecha de nacimiento</th>
+					<th>Direccion</th>
+					<th>Foto de perfil</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="paciente:${pacientes}">
+					<td th:text="${paciente.idPaciente}"></td>
+					<td th:text="${paciente.nombre}"></td>
+					<td th:text="${paciente.apellido}"></td>
+					<td th:text="${paciente.fechaNacimiento}"></td>
+					<td th:text="${paciente.direccion}"></td>
+					<td th:text="${paciente.fotoPerfil}"></td>
+					<td><a
+						th:href="@{/formularioPaciente/}+${paciente.idPaciente}"
+						class="btn btn-warning">Editar </a></td>
+					<td><a th:href="@{/eliminarPaciente/}+${paciente.idPaciente}"
+						class="btn btn-danger">Eliminar </a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

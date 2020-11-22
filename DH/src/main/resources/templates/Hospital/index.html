@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+<title>Digital Harbor - Hospital</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/index">Digital Harbor</a>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h2>App de test para Digital Harbor</h2>
+				<hr />
+			</div>
+		</div>
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-6">
+							<h2>Lista de Hospitales</h2>
+						</div>
+						<div class="col-3">
+							<form th:action="@{/formularioHospital}" method="POST">
+								<button class="btn btn-primary btn-block">Agregar
+									hospital</button>
+							</form>
+						</div>
+
+						<div class="col-3">
+							<form th:action="@{/ListaEspecialidades}" method="POST">
+								<button class="btn btn-primary btn-block">Especialidades</button>
+							</form>
+						</div>
+
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Identificador</th>
+								<th>Nombre</th>
+								<th>Fecha de registro</th>
+								<th>Modificar</th>
+								<th>Eliminar</th>
+								<th>Gestion</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="hospital:${hospitales}">
+								<td th:text="${hospital.idHospital}"></td>
+								<td th:text="${hospital.nombre}"></td>
+								<td th:text="${hospital.fechaRegistro}"></td>
+								<td><a
+									th:href="@{/formularioHospital/}+${hospital.idHospital}"
+									class="btn btn-warning btn-block">Editar </a></td>
+								<td><a
+									th:href="@{/EliminarHospital/}+${hospital.idHospital}"
+									class="btn btn-danger btn-block">Eliminar </a></td>
+								<td width="20%">
+									<div class="row">
+										<div class="col-12">
+											<a type="submit"
+												th:href="@{/ListaDoctores/}+${hospital.idHospital}"
+												class="btn btn-primary btn-block">Doctores</a>
+										</div>
+										<br /> <br />
+										<div class="col-12">
+											<a type="submit"
+												th:href="@{/ListaPacientes/}+${hospital.idHospital}"
+												class="btn btn-primary btn-block">Pacientes</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

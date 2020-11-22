@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+<title>Digital Harbor - Hospital</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/index">Digital Harbor</a>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<hr />
+				<h2>App de test para Digital Harbor</h2>
+				<hr />
+			</div>
+		</div>
+		<h1>Gestion de pacientes</h1>
+		<form action="/agregarPaciente" th:Object=${paciente} method="post">
+			<div class="form-group">
+				<label>Identificador:</label> <input type="text"
+					class="form-control" placeholder="Identificador"
+					th:field="*{idPaciente}" required>
+			</div>
+			<div class="form-group">
+				<label>Nombre:</label> <input type="text" class="form-control"
+					placeholder="Nombre" th:field="*{nombre}" required>
+			</div>
+			<div class="form-group">
+				<label>Apellido:</label> <input type="text" class="form-control"
+					placeholder="Apellido" th:field="*{apellido}" required>
+			</div>
+
+			<div class="form-group">
+				<label>Fecha de nacimiento:</label> <input type="date"
+					class="form-control" placeholder="Fecha de nacimiento"
+					th:field="*{fechaNacimiento}" required>
+			</div>
+
+			<div class="form-group">
+				<label>Direccion:</label> <input type="text" class="form-control"
+					placeholder="Direccion" th:field="*{direccion}" required>
+			</div>
+
+			<div class="form-group">
+				<label>Foto de perfil:</label> <input type="text"
+					class="form-control" placeholder="Foto de perfil"
+					th:field="*{fotoPerfil}" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Guardar
+				informacion</button>
+		</form>
+	</div>
+</body>
+</html>

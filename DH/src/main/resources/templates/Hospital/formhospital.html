@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+<title>Digital Harbor - Hospital</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/index">Digital Harbor</a>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<hr />
+				<h2>App de test para Digital Harbor</h2>
+				<hr />
+			</div>
+		</div>
+		<h1>Gestion de Hospitales</h1>
+		<form action="/guardarHospital" th:Object=${hospital} method="post">
+			<div class="form-group">
+				<label>Identificador:</label> <input type="text"
+					class="form-control" placeholder="Identificador"
+					th:field="*{idHospital}" required>
+			</div>
+			<div class="form-group">
+				<label>Nombre:</label> <input type="text" class="form-control"
+					placeholder="Nombre" th:field="*{nombre}" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Guardar</button>
+		</form>
+	</div>
+</body>
+</html>
