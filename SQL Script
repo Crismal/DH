@@ -1,0 +1,157 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema DigitalHarbor
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema DigitalHarbor
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `DigitalHarbor` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
+USE `DigitalHarbor` ;
+
+-- -----------------------------------------------------
+-- Table `DigitalHarbor`.`Hospital`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DigitalHarbor`.`Hospital` (
+  `id_hospital` INT NOT NULL,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `estado_registro` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_registro` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_modificacion` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_hospital`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `DigitalHarbor`.`Doctor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DigitalHarbor`.`Doctor` (
+  `id_doctor` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `apellido` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_nacimiento` VARCHAR(45) NULL DEFAULT NULL,
+  `direccion` VARCHAR(45) NULL DEFAULT NULL,
+  `foto_perfil` VARCHAR(45) NULL DEFAULT NULL,
+  `estado_registro` VARCHAR(1) NULL DEFAULT NULL,
+  `fecha_registro` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_modificacion` VARCHAR(45) NULL DEFAULT NULL,
+  `Hospital_id_hospital` INT NOT NULL,
+  PRIMARY KEY (`id_doctor`),
+  CONSTRAINT `fk_Doctor_Hospital1`
+    FOREIGN KEY (`Hospital_id_hospital`)
+    REFERENCES `DigitalHarbor`.`Hospital` (`id_hospital`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 22
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+CREATE INDEX `fk_Doctor_Hospital1_idx` ON `DigitalHarbor`.`Doctor` (`Hospital_id_hospital` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `DigitalHarbor`.`Especialidad`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DigitalHarbor`.`Especialidad` (
+  `id_especialidad` INT NOT NULL,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `descripcion` VARCHAR(45) NULL DEFAULT NULL,
+  `icono` VARCHAR(45) NULL DEFAULT NULL,
+  `estado_registro` VARCHAR(1) NULL DEFAULT NULL,
+  `fecha_registro` DATETIME NULL DEFAULT NULL,
+  `fecha_modificacion` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id_especialidad`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `DigitalHarbor`.`Paciente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DigitalHarbor`.`Paciente` (
+  `id_paciente` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `apellido` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_nacimiento` VARCHAR(45) NULL DEFAULT NULL,
+  `direccion` VARCHAR(45) NULL DEFAULT NULL,
+  `foto_perfil` VARCHAR(45) NULL DEFAULT NULL,
+  `estado_registro` VARCHAR(1) NULL DEFAULT NULL,
+  `fecha_registro` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_modificacion` VARCHAR(45) NULL DEFAULT NULL,
+  `Hospital_id_hospital` INT NOT NULL,
+  PRIMARY KEY (`id_paciente`),
+  CONSTRAINT `fk_Paciente_Hospital1`
+    FOREIGN KEY (`Hospital_id_hospital`)
+    REFERENCES `DigitalHarbor`.`Hospital` (`id_hospital`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+CREATE INDEX `fk_Paciente_Hospital1_idx` ON `DigitalHarbor`.`Paciente` (`Hospital_id_hospital` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `DigitalHarbor`.`doctor_especialidad`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DigitalHarbor`.`doctor_especialidad` (
+  `id_doctor_especialidad` INT NOT NULL,
+  `Doctor_id_doctor` INT NOT NULL,
+  `Especialidad_id_especialidad` INT NOT NULL,
+  PRIMARY KEY (`id_doctor_especialidad`),
+  CONSTRAINT `fk_doctor_especialidad_Doctor`
+    FOREIGN KEY (`Doctor_id_doctor`)
+    REFERENCES `DigitalHarbor`.`Doctor` (`id_doctor`),
+  CONSTRAINT `fk_doctor_especialidad_Especialidad1`
+    FOREIGN KEY (`Especialidad_id_especialidad`)
+    REFERENCES `DigitalHarbor`.`Especialidad` (`id_especialidad`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+CREATE INDEX `fk_doctor_especialidad_Doctor_idx` ON `DigitalHarbor`.`doctor_especialidad` (`Doctor_id_doctor` ASC) VISIBLE;
+
+CREATE INDEX `fk_doctor_especialidad_Especialidad1_idx` ON `DigitalHarbor`.`doctor_especialidad` (`Especialidad_id_especialidad` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `DigitalHarbor`.`nota_visita`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DigitalHarbor`.`nota_visita` (
+  `id_notavisita` INT NOT NULL,
+  `descripcion` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha` DATETIME NULL DEFAULT NULL,
+  `estado_registro` VARCHAR(1) NULL DEFAULT NULL,
+  `fecha_registro` DATETIME NULL DEFAULT NULL,
+  `fecha_modificacion` DATETIME NULL DEFAULT NULL,
+  `Doctor_id_doctor` INT NOT NULL,
+  `Paciente_id_paciente` INT NOT NULL,
+  PRIMARY KEY (`id_notavisita`),
+  CONSTRAINT `fk_nota_visita_Doctor1`
+    FOREIGN KEY (`Doctor_id_doctor`)
+    REFERENCES `DigitalHarbor`.`Doctor` (`id_doctor`),
+  CONSTRAINT `fk_nota_visita_Paciente1`
+    FOREIGN KEY (`Paciente_id_paciente`)
+    REFERENCES `DigitalHarbor`.`Paciente` (`id_paciente`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+CREATE INDEX `fk_nota_visita_Doctor1_idx` ON `DigitalHarbor`.`nota_visita` (`Doctor_id_doctor` ASC) VISIBLE;
+
+CREATE INDEX `fk_nota_visita_Paciente1_idx` ON `DigitalHarbor`.`nota_visita` (`Paciente_id_paciente` ASC) VISIBLE;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
