@@ -11,3 +11,6 @@ en el archivo de application.properties se encuentran los datos para coneccion a
 que esta en MYSQL 
 
 se debe cambiar la informacion segun la base de datos que se use en el caso de instalacion 
+
+El Script de la base de datos esta en el archivo 
+SQL SCRIPT
