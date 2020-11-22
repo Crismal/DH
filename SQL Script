@@ -32,6 +32,8 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_spanish_ci;
 
 
+INSERT INTO `Hospital` (`id_hospital`, `nombre`, `estado_registro`, `fecha_registro`, `fecha_modificacion`) VALUES (1,'Hospital 12',NULL,NULL,NULL),(5,'hospital 5',NULL,NULL,NULL);
+
 -- -----------------------------------------------------
 -- Table `DigitalHarbor`.`Doctor`
 -- -----------------------------------------------------
@@ -57,6 +59,7 @@ COLLATE = utf8_spanish_ci;
 
 CREATE INDEX `fk_Doctor_Hospital1_idx` ON `DigitalHarbor`.`Doctor` (`Hospital_id_hospital` ASC) VISIBLE;
 
+INSERT INTO `Doctor` (`id_doctor`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `foto_perfil`, `estado_registro`, `fecha_registro`, `fecha_modificacion`, `Hospital_id_hospital`) VALUES (3,'Dr Pedro','Peres','2019-12-31','Av America 12','Test',NULL,NULL,NULL,1),(4,'Dr fernando','luca','2020-11-20','Oquendo 12','test',NULL,NULL,NULL,1),(21,'Dr Pedro','Fernandez','2020-11-26','Juan de la rosa 67','TEst',NULL,NULL,NULL,5);
 
 -- -----------------------------------------------------
 -- Table `DigitalHarbor`.`Especialidad`
@@ -99,6 +102,8 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_spanish_ci;
 
 CREATE INDEX `fk_Paciente_Hospital1_idx` ON `DigitalHarbor`.`Paciente` (`Hospital_id_hospital` ASC) VISIBLE;
+
+INSERT INTO `Paciente` (`id_paciente`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `foto_perfil`, `estado_registro`, `fecha_registro`, `fecha_modificacion`, `Hospital_id_hospital`) VALUES (3,'Paciente Hosp 2','Quinteros','2020-11-19','Ayacucho 67','Test',NULL,NULL,NULL,5),(4,'Paciente Hosp 1','Quiroga','2020-11-04','Galindo 12','Test',NULL,NULL,NULL,1),(5,'Paciente Hosp 1','Lazarte','2020-11-11','Test','Test',NULL,NULL,NULL,1);
 
 
 -- -----------------------------------------------------
